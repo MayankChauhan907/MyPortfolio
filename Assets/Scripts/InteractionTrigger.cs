@@ -5,8 +5,7 @@ public class InteractionTrigger : MonoBehaviour
     public enum SectionType { Profile, Skills, Experience, BestGames, Technologies, Resume }
     public SectionType sectionType;
 
-    public GameObject uiPanel; // Assign Canvas UI (For Profile)
-    public GameObject floating3DUI; // Assign 3D Elements (For Skills, Tech, etc.)
+    public UIAnimator uiPanel; // Assign Canvas UI (For Profile)
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,18 +27,12 @@ public class InteractionTrigger : MonoBehaviour
     void ShowSection()
     {
         if (uiPanel != null)
-            uiPanel.SetActive(true);
-
-        if (floating3DUI != null)
-            floating3DUI.SetActive(true);
+            uiPanel.ShowUI();
     }
 
     void HideSection()
     {
         if (uiPanel != null)
-            uiPanel.SetActive(false);
-
-        if (floating3DUI != null)
-            floating3DUI.SetActive(false);
+            uiPanel.HideUI();
     }
 }

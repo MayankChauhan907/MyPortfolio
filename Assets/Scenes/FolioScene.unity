@@ -881,8 +881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sectionType: 0
-  uiPanel: {fileID: 683723598}
-  floating3DUI: {fileID: 0}
+  uiPanel: {fileID: 150312427}
 --- !u!114 &150312427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -897,7 +896,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 683723602}
   panel: {fileID: 683723599}
-  animatedTexts: []
+  animatedTextCanvasGroups:
+  - {fileID: 605318730}
   fadeDuration: 0.5
   scaleDuration: 0.5
   textFadeDelay: 0.2
@@ -3054,6 +3054,7 @@ GameObject:
   - component: {fileID: 605318729}
   - component: {fileID: 605318731}
   - component: {fileID: 605318730}
+  - component: {fileID: 605318732}
   m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
@@ -3179,6 +3180,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 605318728}
   m_CullTransparentMesh: 1
+--- !u!225 &605318732
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605318728}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &605363458
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9995,8 +10008,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 31
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 1
