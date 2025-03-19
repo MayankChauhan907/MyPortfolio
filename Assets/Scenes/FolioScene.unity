@@ -1210,7 +1210,18 @@ MonoBehaviour:
   scrollView: {fileID: 10828839}
   canvasGroup: {fileID: 683723602}
   panel: {fileID: 683723599}
-  animatedTextCanvasGroups: []
+  animatedTextCanvasGroups:
+  - {fileID: 605318730}
+  - {fileID: 1201216539}
+  - {fileID: 1161802897}
+  - {fileID: 1538592656}
+  - {fileID: 635432618}
+  - {fileID: 264354983}
+  - {fileID: 267533525}
+  - {fileID: 44011886}
+  - {fileID: 1301079812}
+  - {fileID: 933683900}
+  - {fileID: 1666045363}
   fadeDuration: 0.5
   scaleDuration: 0.5
   textFadeDelay: 0.2
