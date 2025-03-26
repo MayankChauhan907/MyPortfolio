@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 
 public class CarController : MonoBehaviour
 {
@@ -33,6 +34,10 @@ public class CarController : MonoBehaviour
                                    // in the points x = 0 and z = 0 of your car. You can select the value that you want in the y axis,
                                    // however, you must notice that the higher this value is, the more unstable the car becomes.
                                    // Usually the y value goes from 0 to 1.5.
+    private Vector3 initialPosition; // To store the initial position of the car
+    private Quaternion initialRotation; // To store the initial rotation of the car
+    public CanvasGroup fadeEffectCanvasGroup; // Reference to the CanvasGroup for fade effect
+    [Space(10)]
 
     //WHEELS
 
@@ -267,6 +272,10 @@ public class CarController : MonoBehaviour
             }
         }
 
+        // Store the initial position and rotation of the car
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
+
     }
 
     // Update is called once per frame
@@ -393,6 +402,11 @@ public class CarController : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(FadeAndResetCar());
+        }
+
 
         // We call the method AnimateWheelMeshes() in order to match the wheel collider movements with the 3D meshes of the wheels.
         AnimateWheelMeshes();
@@ -416,6 +430,61 @@ public class CarController : MonoBehaviour
             }
         }
 
+    }
+
+    private IEnumerator FadeAndResetCar()
+    {
+        // Fade out (screen to black)
+        yield return StartCoroutine(FadeOut());
+
+        // Stop the car's movement
+        carRigidbody.linearVelocity = Vector3.zero;
+        carRigidbody.angularVelocity = Vector3.zero;
+
+        // Reset the car's position and rotation
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
+
+        // Reset other necessary variables (e.g., throttle, steering)
+        throttleAxis = 0f;
+        steeringAxis = 0f;
+        ResetSteeringAngle();
+
+        // Fade in (screen back to normal)
+        yield return new WaitForSeconds(0.5f); // Wait for half a second before fading in
+        yield return StartCoroutine(FadeIn());
+    }
+
+    // Coroutine to fade out (screen to black)
+    private IEnumerator FadeOut()
+    {
+        float fadeDuration = 1f; // Duration of the fade effect
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            fadeEffectCanvasGroup.alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
+            yield return null;
+        }
+
+        fadeEffectCanvasGroup.alpha = 1f; // Ensure fully faded out
+    }
+
+    // Coroutine to fade in (screen back to normal)
+    private IEnumerator FadeIn()
+    {
+        float fadeDuration = 1f; // Duration of the fade effect
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            fadeEffectCanvasGroup.alpha = Mathf.Clamp01(1f - (elapsedTime / fadeDuration));
+            yield return null;
+        }
+
+        fadeEffectCanvasGroup.alpha = 0f; // Ensure fully faded in
     }
 
     public void StopCarImmediately()
