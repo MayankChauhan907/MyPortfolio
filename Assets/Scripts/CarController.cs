@@ -418,6 +418,15 @@ public class CarController : MonoBehaviour
 
     }
 
+    public void StopCarImmediately()
+    {
+        if (carRigidbody != null)
+        {
+            carRigidbody.linearVelocity = Vector3.zero; // Stop all movement
+            carRigidbody.angularVelocity = Vector3.zero; // Stop all rotation
+        }
+    }
+
     // This method controls the car sounds. For example, the car engine will sound slow when the car speed is low because the
     // pitch of the sound will be at its lowest point. On the other hand, it will sound fast when the car speed is high because
     // the pitch of the sound will be the sum of the initial pitch + the car speed divided by 100f.

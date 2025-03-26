@@ -13,6 +13,7 @@ public class InteractionTrigger : MonoBehaviour
         {
             Debug.Log("Entered: " + sectionType.ToString());
             ShowSection();
+            other.GetComponentInParent<CarController>().StopCarImmediately();
         }
     }
 
