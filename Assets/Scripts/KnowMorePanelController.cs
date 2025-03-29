@@ -39,6 +39,9 @@ public class KnowMorePanelController : MonoBehaviour
 
     public void HidePanel()
     {
+        gameDetailsPanel.interactable = false;
+        gameDetailsPanel.blocksRaycasts = false;
+
         // Fade out smoothly
         panelCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.InSine)
             .OnComplete(() =>
@@ -59,6 +62,8 @@ public class KnowMorePanelController : MonoBehaviour
             panelCanvasGroup.interactable = false;
             panelCanvasGroup.blocksRaycasts = false;
             gameDetailsPanel.DOFade(1f, 0.5f).SetEase(Ease.OutSine);
+            gameDetailsPanel.interactable = true;
+            gameDetailsPanel.blocksRaycasts = true;
         });
     }
 }
