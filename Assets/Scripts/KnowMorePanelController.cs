@@ -7,13 +7,8 @@ public class KnowMorePanelController : MonoBehaviour
 {
     [Header("UI Elements")]
     public CanvasGroup panelCanvasGroup; // Canvas group for smooth fade
-    public TextMeshProUGUI gameTitleText; // TMP text for game title
     public Button knowMoreButton; // Button to open game link
     private CanvasGroup gameDetailsPanel;
-
-    [Header("Game Details")]
-    public string gameTitle; // Title of the game
-    public string gameInfoURL; // URL for the game project
 
     private void Start()
     {
