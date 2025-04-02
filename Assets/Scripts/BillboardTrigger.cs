@@ -6,6 +6,7 @@ public class BillboardTrigger : MonoBehaviour
 {
     public KnowMorePanelController knowMorePanel; // Reference to the KnowMorePanel script
     [SerializeField] CanvasGroup gameDetailsPanel; // Reference to the game details panel
+    [SerializeField] ScrollRect scrollRect; // Reference to the scroll rect for smooth scrolling
 
     void Start()
     {
@@ -21,7 +22,10 @@ public class BillboardTrigger : MonoBehaviour
         if (other.CompareTag("Car")) // Detect car
         {
             if (knowMorePanel != null)
+            {
                 knowMorePanel.ShowPanel(gameDetailsPanel);
+                scrollRect.verticalNormalizedPosition = 1f; // Scroll to the top of the panel
+            }
         }
     }
 
