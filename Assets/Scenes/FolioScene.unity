@@ -17449,7 +17449,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\U0001F4A1 Project Overview:\n\n\u201CThe Great Fleet\u201D is a stealth-based
+  m_text: "\U0001F4A1 Project Overview:\n\n\u201CThe Great Fleece\u201D is a stealth-based
     prototype where I explored cutscene direction, smart enemy AI, and player-controlled
     navigation using Unity\u2019s NavMesh system. The goal? Sneak through a high-security
     area without being detected, snatch the key from a sleeping guard, and escape!\n\n\U0001F3AC
@@ -19590,7 +19590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4084645480426706736, guid: ff72afea1c22ef848a7566640fc15c09, type: 3}
       propertyPath: m_Name
-      value: TheGreatFleet
+      value: TheGreatFleece
       objectReference: {fileID: 0}
     - target: {fileID: 4666249996149063032, guid: ff72afea1c22ef848a7566640fc15c09, type: 3}
       propertyPath: m_LocalScale.x
@@ -20616,7 +20616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\U0001F6E1 The Great Fleet"
+  m_text: "\U0001F6E1 The Great Fleece"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bf50f638c1c70194380f8555e71ae286, type: 2}
   m_sharedMaterial: {fileID: 2026139274511346917, guid: bf50f638c1c70194380f8555e71ae286, type: 2}
