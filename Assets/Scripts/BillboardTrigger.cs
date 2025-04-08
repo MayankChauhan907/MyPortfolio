@@ -23,7 +23,7 @@ public class BillboardTrigger : MonoBehaviour
         {
             if (knowMorePanel != null)
             {
-                knowMorePanel.ShowPanel(gameDetailsPanel);
+                knowMorePanel.ShowKnowMorePanel(gameDetailsPanel);
                 scrollRect.verticalNormalizedPosition = 1f; // Scroll to the top of the panel
             }
         }
@@ -34,7 +34,7 @@ public class BillboardTrigger : MonoBehaviour
         if (other.CompareTag("Car"))
         {
             if (knowMorePanel != null)
-                knowMorePanel.HidePanel();
+                knowMorePanel.HideAllPanels();
         }
     }
 }

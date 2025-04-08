@@ -1,64 +1,93 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using DG.Tweening; // For smooth animations
+using DG.Tweening;
+using UnityEngine.Events;
 
 public class KnowMorePanelController : MonoBehaviour
 {
     [Header("UI Elements")]
-    public CanvasGroup panelCanvasGroup; // Canvas group for smooth fade
-    public Button knowMoreButton; // Button to open game link
-    private CanvasGroup gameDetailsPanel;
+    public CanvasGroup knowMorePanel;
+    public Button knowMoreButton;
+
+    [Header("Animation Settings")]
+    [SerializeField] private float fadeDuration = 0.5f;
+    [SerializeField] private Ease fadeInEase = Ease.OutSine;
+    [SerializeField] private Ease fadeOutEase = Ease.InSine;
+
+    [SerializeField] private CanvasGroup currentDetailPanel;
 
     private void Start()
     {
-        // Hide the panel at start
-        panelCanvasGroup.alpha = 0;
-        panelCanvasGroup.interactable = false;
-        panelCanvasGroup.blocksRaycasts = false;
+        HideCanvasGroup(knowMorePanel);
     }
 
-    public void ShowPanel(CanvasGroup panel)
+    public void ShowKnowMorePanel(CanvasGroup newDetailPanel = null)
     {
-        Debug.Log("Showing panel: " + panel.name);
-        gameDetailsPanel = panel;
-        // gameTitleText.text = gameTitle; // Set the game title dynamically
+        if (currentDetailPanel != null)
+            HideCanvasGroup(currentDetailPanel);
+
+        if (newDetailPanel != null) currentDetailPanel = newDetailPanel;
+
         knowMoreButton.onClick.RemoveAllListeners();
-        knowMoreButton.onClick.AddListener(() => OpenGameInfo());
+        knowMoreButton.onClick.AddListener(SwitchToGameDetailsPanel);
 
-        // Fade in smoothly
-        panelCanvasGroup.DOFade(1f, 0.5f).SetEase(Ease.OutSine);
-        panelCanvasGroup.interactable = true;
-        panelCanvasGroup.blocksRaycasts = true;
+        FadeCanvasGroup(knowMorePanel, true);
     }
 
-    public void HidePanel()
+    public void HideAllPanels()
     {
-        gameDetailsPanel.interactable = false;
-        gameDetailsPanel.blocksRaycasts = false;
+        if (currentDetailPanel != null)
+            HideCanvasGroup(currentDetailPanel);
 
-        // Fade out smoothly
-        panelCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.InSine)
-            .OnComplete(() =>
-            {
-                panelCanvasGroup.interactable = false;
-                panelCanvasGroup.blocksRaycasts = false;
-                gameDetailsPanel.DOFade(0f, 0.5f).SetEase(Ease.OutSine);
-            });
+        HideCanvasGroup(knowMorePanel);
     }
 
-    private void OpenGameInfo()
+    public void SwitchToGameDetailsPanel()
     {
-        Debug.Log("Opening game info: ");
+        if (currentDetailPanel == null) return;
 
-        panelCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.InSine)
-        .OnComplete(() =>
+        FadeCanvasGroup(knowMorePanel, false, () =>
         {
-            panelCanvasGroup.interactable = false;
-            panelCanvasGroup.blocksRaycasts = false;
-            gameDetailsPanel.DOFade(1f, 0.5f).SetEase(Ease.OutSine);
-            gameDetailsPanel.interactable = true;
-            gameDetailsPanel.blocksRaycasts = true;
+            FadeCanvasGroup(currentDetailPanel, true);
         });
     }
+
+    public void SwitchBackToKnowMorePanel()
+    {
+        if (currentDetailPanel == null) return;
+
+        FadeCanvasGroup(currentDetailPanel, false, () =>
+        {
+            FadeCanvasGroup(knowMorePanel, true);
+        });
+    }
+
+    #region Helpers
+
+    private void FadeCanvasGroup(CanvasGroup group, bool show, UnityAction onComplete = null)
+    {
+        DOTween.Kill(group); // Prevent overlapping tweens
+
+        float targetAlpha = show ? 1f : 0f;
+        Ease ease = show ? fadeInEase : fadeOutEase;
+
+        group.DOFade(targetAlpha, fadeDuration).SetEase(ease).OnComplete(() =>
+        {
+            group.interactable = show;
+            group.blocksRaycasts = show;
+            onComplete?.Invoke();
+        });
+    }
+
+    private void HideCanvasGroup(CanvasGroup group)
+    {
+        if (group == null) return;
+
+        DOTween.Kill(group);
+        group.alpha = 0f;
+        group.interactable = false;
+        group.blocksRaycasts = false;
+    }
+
+    #endregion
 }
