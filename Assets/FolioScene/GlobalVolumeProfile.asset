@@ -83,7 +83,7 @@ MonoBehaviour:
     m_Value: 2
   acesPreset:
     m_OverrideState: 0
-    m_Value: 3
+    m_Value: 5
   hueShiftAmount:
     m_OverrideState: 0
     m_Value: 0

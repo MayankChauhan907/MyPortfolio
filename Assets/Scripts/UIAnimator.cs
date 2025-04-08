@@ -33,7 +33,12 @@ public class UIAnimator : MonoBehaviour
     public void ShowUI()
     {
         // Fade in panel & scale up
-        canvasGroup.DOFade(1, fadeDuration);
+        canvasGroup.DOFade(1, fadeDuration).OnComplete
+        (() =>
+        {
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        });
         panel.DOScale(Vector3.one, scaleDuration).SetEase(Ease.OutBack);
 
         // Animate each text element
@@ -60,7 +65,12 @@ public class UIAnimator : MonoBehaviour
             txt.alpha = 0;
         }
         // Fade out panel & scale down
-        canvasGroup.DOFade(0, fadeDuration);
+        canvasGroup.DOFade(0, fadeDuration).OnComplete
+        (() =>
+        {
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+        }); ;
         panel.DOScale(Vector3.zero, scaleDuration).SetEase(Ease.InBack);
     }
 }
