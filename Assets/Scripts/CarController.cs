@@ -306,7 +306,7 @@ public class CarController : MonoBehaviour
         if (useTouchControls && touchControlsSetup)
         {
 
-            if (throttlePTI.buttonPressed)
+            if (throttlePTI.buttonPressed && canMove)
             {
                 CancelInvoke("DecelerateCar");
                 deceleratingCar = false;
@@ -355,7 +355,7 @@ public class CarController : MonoBehaviour
         else
         {
 
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W) && canMove)
             {
                 CancelInvoke("DecelerateCar");
                 deceleratingCar = false;
@@ -487,13 +487,24 @@ public class CarController : MonoBehaviour
         fadeEffectCanvasGroup.alpha = 0f; // Ensure fully faded in
     }
 
+    private bool canMove = true; // Flag to control car movement
+
     public void StopCarImmediately()
     {
         if (carRigidbody != null)
         {
             carRigidbody.linearVelocity = Vector3.zero; // Stop all movement
             carRigidbody.angularVelocity = Vector3.zero; // Stop all rotation
+
+            StartCoroutine(DisableMovementForSeconds(2f));
         }
+    }
+
+    private IEnumerator DisableMovementForSeconds(float duration)
+    {
+        canMove = false; // Disable movement
+        yield return new WaitForSeconds(duration); // Wait for the specified duration
+        canMove = true; // Re-enable movement
     }
 
     // This method controls the car sounds. For example, the car engine will sound slow when the car speed is low because the
@@ -636,6 +647,9 @@ public class CarController : MonoBehaviour
     // This method apply positive torque to the wheels in order to go forward.
     public void GoForward()
     {
+
+        if (!canMove) return; // Prevent movement if the car is temporarily stopped
+
         //If the forces aplied to the rigidbody in the 'x' asis are greater than
         //3f, it means that the car is losing traction, then the car will start emitting particle systems.
         if (Mathf.Abs(localVelocityX) > 2.5f)
