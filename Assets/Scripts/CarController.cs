@@ -355,7 +355,7 @@ public class CarController : MonoBehaviour
         else
         {
 
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W) && canMove)
             {
                 CancelInvoke("DecelerateCar");
                 deceleratingCar = false;
@@ -487,13 +487,31 @@ public class CarController : MonoBehaviour
         fadeEffectCanvasGroup.alpha = 0f; // Ensure fully faded in
     }
 
+    [SerializeField] private bool canMove = true; // Flag to control car movement
+
     public void StopCarImmediately()
     {
         if (carRigidbody != null)
         {
             carRigidbody.linearVelocity = Vector3.zero; // Stop all movement
             carRigidbody.angularVelocity = Vector3.zero; // Stop all rotation
+
+            frontLeftCollider.motorTorque = 0;
+            frontRightCollider.motorTorque = 0;
+            rearLeftCollider.motorTorque = 0;
+            rearRightCollider.motorTorque = 0;
+
+            localVelocityX = 0;
+            localVelocityZ = 0;
+            canMove = false; // Set the flag to false to prevent further movement
+
+            Invoke("RestoreCarMovement", 2.5f); // Restore movement after 1 second
         }
+    }
+
+    private void RestoreCarMovement()
+    {
+        canMove = true; // Restore car movement
     }
 
     // This method controls the car sounds. For example, the car engine will sound slow when the car speed is low because the
