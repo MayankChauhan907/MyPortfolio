@@ -104,6 +104,7 @@ public class CarController : MonoBehaviour
     [Space(10)]
     //The following variables lets you to set up touch controls for mobile devices.
     public bool useTouchControls = false;
+    [SerializeField] CanvasGroup touchControlsCanvasGroup; // Reference to the CanvasGroup for touch controls
     public GameObject throttleButton;
     PrometeoTouchInput throttlePTI;
     public GameObject reverseButton;
@@ -276,12 +277,26 @@ public class CarController : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
 
+        if (useTouchControls)
+        {
+            touchControlsCanvasGroup.alpha = 1f; // Make the touch controls visible
+            touchControlsCanvasGroup.interactable = true; // Allow interaction with touch controls
+            touchControlsCanvasGroup.blocksRaycasts = true; // Enable raycasting for touch controls
+        }
+        else
+        {
+            touchControlsCanvasGroup.alpha = 0f; // Hide the touch controls
+            touchControlsCanvasGroup.interactable = false; // Disable interaction with touch controls
+            touchControlsCanvasGroup.blocksRaycasts = false; // Disable raycasting for touch controls
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
+        if (!canMove) return; // Prevents any movement if canMove is false
         //CAR DATA
 
         // We determine the speed of the car.
@@ -355,7 +370,7 @@ public class CarController : MonoBehaviour
         else
         {
 
-            if (Input.GetKey(KeyCode.W) && canMove)
+            if (Input.GetKey(KeyCode.W))
             {
                 CancelInvoke("DecelerateCar");
                 deceleratingCar = false;
