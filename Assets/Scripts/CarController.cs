@@ -104,7 +104,7 @@ public class CarController : MonoBehaviour
     //[Header("CONTROLS")]
     [Space(10)]
     //The following variables lets you to set up touch controls for mobile devices.
-    bool useTouchControls = false;
+    [HideInInspector] public bool useTouchControls = false;
     [SerializeField] CanvasGroup touchControlsCanvasGroup; // Reference to the CanvasGroup for touch controls
     public GameObject throttleButton;
     PrometeoTouchInput throttlePTI;
@@ -260,46 +260,37 @@ public class CarController : MonoBehaviour
             }
         }
 
-        if (useTouchControls)
+        if (throttleButton != null && reverseButton != null &&
+        turnRightButton != null && turnLeftButton != null
+        && handbrakeButton != null)
         {
-            if (throttleButton != null && reverseButton != null &&
-            turnRightButton != null && turnLeftButton != null
-            && handbrakeButton != null)
-            {
 
-                throttlePTI = throttleButton.GetComponent<PrometeoTouchInput>();
-                reversePTI = reverseButton.GetComponent<PrometeoTouchInput>();
-                turnLeftPTI = turnLeftButton.GetComponent<PrometeoTouchInput>();
-                turnRightPTI = turnRightButton.GetComponent<PrometeoTouchInput>();
-                handbrakePTI = handbrakeButton.GetComponent<PrometeoTouchInput>();
-                touchControlsSetup = true;
+            throttlePTI = throttleButton.GetComponent<PrometeoTouchInput>();
+            reversePTI = reverseButton.GetComponent<PrometeoTouchInput>();
+            turnLeftPTI = turnLeftButton.GetComponent<PrometeoTouchInput>();
+            turnRightPTI = turnRightButton.GetComponent<PrometeoTouchInput>();
+            handbrakePTI = handbrakeButton.GetComponent<PrometeoTouchInput>();
+            touchControlsSetup = true;
 
-            }
-            else
-            {
-                String ex = "Touch controls are not completely set up. You must drag and drop your scene buttons in the" +
-                " PrometeoCarController component.";
-                Debug.LogWarning(ex);
-            }
         }
+
 
         // Store the initial position and rotation of the car
         initialPosition = transform.position;
         initialRotation = transform.rotation;
 
-        if (useTouchControls && touchControlsSetup)
-        {
-            touchControlsCanvasGroup.alpha = 1f; // Make the touch controls visible
-            touchControlsCanvasGroup.interactable = true; // Allow interaction with touch controls
-            touchControlsCanvasGroup.blocksRaycasts = true; // Enable raycasting for touch controls
-        }
-        else
-        {
-            touchControlsCanvasGroup.alpha = 0f; // Hide the touch controls
-            touchControlsCanvasGroup.interactable = false; // Disable interaction with touch controls
-            touchControlsCanvasGroup.blocksRaycasts = false; // Disable raycasting for touch controls
-        }
+        touchControlsCanvasGroup.alpha = (useTouchControls ? 1f : 0);
+        touchControlsCanvasGroup.interactable = useTouchControls;
+        touchControlsCanvasGroup.blocksRaycasts = useTouchControls;
+    }
 
+    public void ChangeControlSettings(bool useUIControls)
+    {
+        useTouchControls = useUIControls;
+
+        touchControlsCanvasGroup.alpha = (useTouchControls ? 1f : 0);
+        touchControlsCanvasGroup.interactable = useTouchControls;
+        touchControlsCanvasGroup.blocksRaycasts = useTouchControls;
     }
 
     // Update is called once per frame
