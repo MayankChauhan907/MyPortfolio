@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using DG.Tweening;
 
 public class CarController : MonoBehaviour
 {
@@ -103,7 +104,7 @@ public class CarController : MonoBehaviour
     //[Header("CONTROLS")]
     [Space(10)]
     //The following variables lets you to set up touch controls for mobile devices.
-    public bool useTouchControls = false;
+    bool useTouchControls = false;
     [SerializeField] CanvasGroup touchControlsCanvasGroup; // Reference to the CanvasGroup for touch controls
     public GameObject throttleButton;
     PrometeoTouchInput throttlePTI;
@@ -152,9 +153,18 @@ public class CarController : MonoBehaviour
     WheelFrictionCurve RRwheelFriction;
     float RRWextremumSlip;
 
+    void Awake()
+    {
+        fadeEffectCanvasGroup.alpha = 1f; // Start fully faded out
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        fadeEffectCanvasGroup.DOFade(0f, 1f); // Fade in over 1 second
+
+        useTouchControls = PlayerPrefs.GetInt("UseUIControls", 0) == 1;
+
         //In this part, we set the 'carRigidbody' value with the Rigidbody attached to this
         //gameObject. Also, we define the center of mass of the car with the Vector3 given
         //in the inspector.
@@ -277,7 +287,7 @@ public class CarController : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
 
-        if (useTouchControls)
+        if (useTouchControls && touchControlsSetup)
         {
             touchControlsCanvasGroup.alpha = 1f; // Make the touch controls visible
             touchControlsCanvasGroup.interactable = true; // Allow interaction with touch controls

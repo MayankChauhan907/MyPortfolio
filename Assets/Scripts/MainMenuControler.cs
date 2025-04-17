@@ -14,6 +14,10 @@ public class MainMenuControler : MonoBehaviour
     private void Start()
     {
         // Load saved setting (default: keyboard if nothing saved)
+        if (!PlayerPrefs.HasKey("UseUIControls"))
+        {
+            PlayerPrefs.SetInt("UseUIControls", 0);
+        }
         bool useUI = PlayerPrefs.GetInt("UseUIControls", 0) == 1;
 
         // Set the toggles without triggering value change events
