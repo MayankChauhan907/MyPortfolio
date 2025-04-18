@@ -24136,7 +24136,7 @@ MonoBehaviour:
     integration.\n\u2022\tPlastic SCM & Git \u2192 Version control & project management.\n\u2022\tCinemachine
     \u2192 Advanced camera systems for dynamic scenes.\n\u2022\tTextMeshPro \u2192
     High-quality text rendering with rich formatting.\n\u2022\tFMOD & Wwise \u2192
-    Audio middleware for immersive game sound design.\n\u2022\tNavMesh & A Pathfinding*
+    Audio middleware for immersive game sound design.\n\u2022\tNavMesh & AI Pathfinding*
     \u2192 AI navigation and pathfinding solutions.\n\u2022\tShader Graph & HLSL
     \u2192 Creating custom shaders for unique visual effects.\n\u2022\tPlayFab \u2192
     Backend solutions for cloud-based leaderboards and multiplayer.\n\u2022\tScriptable
@@ -49819,7 +49819,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 32, y: 0.00001428899}
+  m_AnchoredPosition: {x: 32, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1974940384
