@@ -47,7 +47,7 @@ PlayerSettings:
   defaultScreenWidthWeb: 1920
   defaultScreenHeightWeb: 1080
   m_StereoRenderingPath: 0
-  m_ActiveColorSpace: 1
+  m_ActiveColorSpace: 0
   unsupportedMSAAFallback: 0
   m_SpriteBatchMaxVertexCount: 65535
   m_SpriteBatchVertexThreshold: 300
@@ -546,6 +546,9 @@ PlayerSettings:
   m_BuildTargetGroupLightmapEncodingQuality:
   - serializedVersion: 2
     m_BuildTarget: Android
+    m_EncodingQuality: 1
+  - serializedVersion: 2
+    m_BuildTarget: WebGL
     m_EncodingQuality: 1
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetGroupLoadStoreDebugModeSettings: []
