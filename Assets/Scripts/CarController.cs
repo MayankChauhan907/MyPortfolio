@@ -117,6 +117,9 @@ public class CarController : MonoBehaviour
     public GameObject handbrakeButton;
     PrometeoTouchInput handbrakePTI;
 
+    public GameObject restCarButton; // Button to reset the car
+    PrometeoTouchInput restCarPTI; // Touch input for the reset button
+
     //CAR DATA
 
     [HideInInspector]
@@ -270,6 +273,7 @@ public class CarController : MonoBehaviour
             turnLeftPTI = turnLeftButton.GetComponent<PrometeoTouchInput>();
             turnRightPTI = turnRightButton.GetComponent<PrometeoTouchInput>();
             handbrakePTI = handbrakeButton.GetComponent<PrometeoTouchInput>();
+            restCarPTI = restCarButton.GetComponent<PrometeoTouchInput>();
             touchControlsSetup = true;
 
         }
@@ -369,6 +373,10 @@ public class CarController : MonoBehaviour
             if (!turnLeftPTI.buttonPressed && !turnRightPTI.buttonPressed && steeringAxis != 0f)
             {
                 ResetSteeringAngle();
+            }
+            if (restCarPTI.buttonPressed)
+            {
+                StartCoroutine(FadeAndResetCar());
             }
 
         }
