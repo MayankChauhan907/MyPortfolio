@@ -282,6 +282,10 @@ public class CarController : MonoBehaviour
         touchControlsCanvasGroup.alpha = (useTouchControls ? 1f : 0);
         touchControlsCanvasGroup.interactable = useTouchControls;
         touchControlsCanvasGroup.blocksRaycasts = useTouchControls;
+
+        float volumeLevel = PlayerPrefs.GetFloat("Volume", 0.5f); // Load volume level from PlayerPrefs
+        carEngineSound.volume = volumeLevel; // Set the volume from PlayerPrefs
+        tireScreechSound.volume = volumeLevel / 5; // Set the volume from PlayerPrefs
     }
 
     public void ChangeControlSettings(bool useUIControls)
